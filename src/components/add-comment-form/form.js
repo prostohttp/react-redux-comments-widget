@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 
 import { vlength, vNotEmpty } from "../../utils/validators";
+import { addComment } from "../../state/actions/action-creators";
 import "./style.css";
-import { ADD_COMMENT } from "../../state/actions/action-types";
 
-const AddCommentForm = ({ comments, addComment }) => {
+const AddCommentForm = ({ addComment }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const focusField = useRef(null);
@@ -29,7 +29,6 @@ const AddCommentForm = ({ comments, addComment }) => {
     ) {
       addComment({
         title: name,
-        date: new Date().toLocaleString(),
         text: comment
       });
       setName("");
@@ -41,9 +40,6 @@ const AddCommentForm = ({ comments, addComment }) => {
       );
     }
   };
-  useEffect(() => {
-    localStorage.setItem("comments", JSON.stringify(comments));
-  });
 
   return (
     <div className="pt-4">
@@ -84,7 +80,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addComment: comment => dispatch({ type: ADD_COMMENT, payload: comment })
+    addComment: comment => addComment(dispatch, comment)
   };
 }
 

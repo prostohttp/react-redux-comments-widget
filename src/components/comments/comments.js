@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { DELETE_COMMENT } from "../../state/actions/action-types";
 import "./style.css";
+import { deleteComment } from "../../state/actions/action-creators";
 
 const Comments = ({ comments, deleteComment }) => {
   const commentsList = comments.map(({ title, date, text }) => (
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteComment: id => dispatch({ type: DELETE_COMMENT, payload: id })
+    deleteComment: id => deleteComment(dispatch, id)
   };
 }
 

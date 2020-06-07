@@ -10,6 +10,10 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+store.subscribe(() => {
+  localStorage.setItem("comments", JSON.stringify(store.getState().comments));
+})
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
